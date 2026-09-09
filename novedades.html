@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Novedades y Efemérides</title>
+
+    <link rel="stylesheet" href="novedades.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         ENCABEZADO
+    ========================== -->
+
+    <header class="encabezado">
+
+        <div class="etiqueta">
+            📢 &nbsp; MANTENETE INFORMADO
+        </div>
+
+        <h1>Novedades y Efemérides</h1>
+
+        <p>
+            Conocé las actividades, eventos y fechas importantes
+            de nuestra institución.
+        </p>
+
+    </header>
+
+
+    <!-- =========================
+         CONTENIDO PRINCIPAL
+    ========================== -->
+
+    <main class="contenedor-principal">
+
+
+        <!-- =========================
+             SECCIÓN NOVEDADES
+        ========================== -->
+
+        <section class="seccion-novedades">
+
+            <div class="titulo-seccion">
+
+                <div class="icono-titulo">
+                    📢
+                </div>
+
+                <h2>Últimas Novedades</h2>
+
+                <a href="#" class="ver-todas">
+                    Ver todas →
+                </a>
+
+            </div>
+
+
+            <!-- NOVEDAD 1 -->
+
+            <article class="tarjeta-novedad">
+
+                <img src="img/ciencia.jpg" alt="Feria de Ciencias">
+
+                <div class="fecha">
+                    <strong>15</strong>
+                    <span>OCT</span>
+                </div>
+
+                <div class="informacion">
+
+                    <span class="tipo evento">
+                        Evento
+                    </span>
+
+                    <h3>Feria de Ciencias</h3>
+
+                    <p>
+                        Los estudiantes presentarán sus proyectos
+                        y trabajos realizados durante el año.
+                    </p>
+
+                    <button class="boton-ver">
+                        Ver más&nbsp; →
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- NOVEDAD 2 -->
+
+            <article class="tarjeta-novedad">
+
+                <img src="img/familia.jpg" alt="Día de la Familia">
+
+                <div class="fecha">
+                    <strong>20</strong>
+                    <span>OCT</span>
+                </div>
+
+                <div class="informacion">
+
+                    <span class="tipo efemeride">
+                        Efeméride
+                    </span>
+
+                    <h3>Día de la Familia</h3>
+
+                    <p>
+                        Celebramos la importancia de las familias
+                        y su acompañamiento en la educación.
+                    </p>
+
+                    <button class="boton-ver">
+                        Ver más&nbsp; →
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- NOVEDAD 3 -->
+
+            <article class="tarjeta-novedad">
+
+                <img src="img/inscripciones.jpg" alt="Inscripciones">
+
+                <div class="fecha">
+                    <strong>02</strong>
+                    <span>NOV</span>
+                </div>
+
+                <div class="informacion">
+
+                    <span class="tipo informacion-tipo">
+                        Información
+                    </span>
+
+                    <h3>Inscripciones Abiertas</h3>
+
+                    <p>
+                        Ya se encuentran abiertas las inscripciones
+                        para el próximo ciclo lectivo.
+                    </p>
+
+                    <button class="boton-ver">
+                        Ver más&nbsp; →
+                    </button>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+
+        <!-- =========================
+             CALENDARIO
+        ========================== -->
+
+        <section class="seccion-calendario">
+
+            <div class="titulo-calendario">
+
+                <div class="icono-calendario">
+                    📅
+                </div>
+
+                <h2>Calendario Escolar</h2>
+
+                <span class="texto-decorativo">
+                    Organizá tu año
+                </span>
+
+            </div>
+
+
+            <!-- CABECERA DEL CALENDARIO -->
+
+            <div class="calendario">
+
+                <div class="mes">
+
+                    <button id="mesAnterior">
+                        ‹
+                    </button>
+
+                    <h3 id="mesActual">
+                        Octubre 2026
+                    </h3>
+
+                    <button id="mesSiguiente">
+                        ›
+                    </button>
+
+                </div>
+
+
+                <!-- DÍAS DE LA SEMANA -->
+
+                <div class="dias-semana">
+
+                    <span>Dom</span>
+                    <span>Lun</span>
+                    <span>Mar</span>
+                    <span>Mié</span>
+                    <span>Jue</span>
+                    <span>Vie</span>
+                    <span>Sáb</span>
+
+                </div>
+
+
+                <!-- DÍAS -->
+
+                <div id="diasCalendario" class="dias">
+
+                </div>
+
+
+                <!-- REFERENCIAS -->
+
+                <div class="referencias">
+
+                    <div>
+                        <span class="circulo importante"></span>
+                        Fecha importante
+                    </div>
+
+                    <div>
+                        <span class="circulo normal"></span>
+                        Día normal
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FRASE FINAL -->
+
+            <div class="mensaje-calendario">
+
+                <div class="icono-mensaje">
+                    📅
+                </div>
+
+                <p>
+                    Cada fecha también<br>
+                    es una oportunidad para crecer
+                </p>
+
+                <span>♡</span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="novedades.js"></script>
+
+</body>
+</html>

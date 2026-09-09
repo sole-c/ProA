@@ -1,0 +1,735 @@
+/* =====================================
+   CONFIGURACIÓN GENERAL
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        radial-gradient(circle at 0% 10%, #c9efff 0, #c9efff 85px, transparent 86px),
+        radial-gradient(circle at 95% 0%, #c5edff 0, #c5edff 150px, transparent 151px),
+        linear-gradient(135deg, #f8fdff, #eaf8ff);
+
+    min-height: 100vh;
+
+    color: #12527d;
+}
+
+
+/* =====================================
+   ENCABEZADO
+===================================== */
+
+.encabezado {
+    text-align: center;
+    padding: 35px 20px 25px;
+}
+
+.etiqueta {
+    display: inline-block;
+
+    background: #d9f3ff;
+    color: #1687c5;
+
+    padding: 10px 20px;
+
+    border-radius: 30px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    margin-bottom: 10px;
+
+    box-shadow: 0 3px 10px rgba(50, 160, 210, 0.08);
+}
+
+.encabezado h1 {
+    font-size: 52px;
+
+    color: #07517e;
+
+    margin: 5px 0 10px;
+
+    font-weight: 800;
+}
+
+.encabezado p {
+    font-size: 21px;
+
+    color: #527695;
+
+    max-width: 900px;
+
+    margin: auto;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================
+   CONTENEDOR PRINCIPAL
+===================================== */
+
+.contenedor-principal {
+    width: 92%;
+    max-width: 1450px;
+
+    margin: 15px auto 50px;
+
+    display: grid;
+
+    grid-template-columns: 1.55fr 1fr;
+
+    gap: 22px;
+}
+
+
+/* =====================================
+   SECCIONES GENERALES
+===================================== */
+
+.seccion-novedades,
+.seccion-calendario {
+    background: rgba(255, 255, 255, 0.88);
+
+    border: 1px solid #c8ebfb;
+
+    border-radius: 20px;
+
+    padding: 22px;
+
+    box-shadow: 0 8px 25px rgba(50, 140, 190, 0.08);
+}
+
+
+/* =====================================
+   TITULO NOVEDADES
+===================================== */
+
+.titulo-seccion {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 18px;
+}
+
+.icono-titulo {
+    width: 60px;
+    height: 60px;
+
+    background: #d8f3ff;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 29px;
+}
+
+.titulo-seccion h2 {
+    font-size: 30px;
+
+    color: #0c527e;
+}
+
+.ver-todas {
+    margin-left: auto;
+
+    text-decoration: none;
+
+    color: #087bb8;
+
+    font-weight: bold;
+
+    font-size: 16px;
+}
+
+.ver-todas:hover {
+    color: #064e77;
+}
+
+
+/* =====================================
+   TARJETAS DE NOVEDADES
+===================================== */
+
+.tarjeta-novedad {
+    min-height: 195px;
+
+    border: 1px solid #c6eafa;
+
+    border-radius: 17px;
+
+    padding: 15px;
+
+    margin-bottom: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    background: #ffffff;
+
+    transition: 0.3s;
+}
+
+.tarjeta-novedad:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 20px rgba(40, 150, 200, 0.12);
+}
+
+
+/* IMAGEN */
+
+.tarjeta-novedad img {
+    width: 202px;
+    height: 160px;
+
+    object-fit: cover;
+
+    border-radius: 13px;
+
+    flex-shrink: 0;
+}
+
+
+/* FECHA */
+
+.fecha {
+    width: 72px;
+    height: 80px;
+
+    background: linear-gradient(180deg, #39b4e8, #209cd2);
+
+    color: white;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-shrink: 0;
+
+    box-shadow: 0 4px 10px rgba(20, 150, 210, 0.18);
+}
+
+.fecha strong {
+    font-size: 28px;
+
+    line-height: 1;
+}
+
+.fecha span {
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-top: 5px;
+}
+
+
+/* INFORMACIÓN */
+
+.informacion {
+    flex: 1;
+}
+
+.tipo {
+    display: inline-block;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+}
+
+.evento {
+    background: #dff5ff;
+    color: #0785c2;
+}
+
+.efemeride {
+    background: #dff5ff;
+    color: #0785c2;
+}
+
+.informacion-tipo {
+    background: #dff5ff;
+    color: #0785c2;
+}
+
+.informacion h3 {
+    color: #084e79;
+
+    font-size: 24px;
+
+    margin-bottom: 5px;
+}
+
+.informacion p {
+    color: #5c7990;
+
+    font-size: 16px;
+
+    line-height: 1.45;
+
+    max-width: 500px;
+}
+
+
+/* BOTÓN */
+
+.boton-ver {
+    border: none;
+
+    background: #d9f3ff;
+
+    color: #087bb7;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+    padding: 10px 18px;
+
+    border-radius: 25px;
+
+    margin-top: 10px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.boton-ver:hover {
+    background: #bceaff;
+
+    transform: translateX(3px);
+}
+
+
+/* =====================================
+   CALENDARIO
+===================================== */
+
+.titulo-calendario {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    margin-bottom: 18px;
+}
+
+.icono-calendario {
+    width: 60px;
+    height: 60px;
+
+    border-radius: 50%;
+
+    background: #d8f3ff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+}
+
+.titulo-calendario h2 {
+    color: #0c527e;
+
+    font-size: 29px;
+}
+
+.texto-decorativo {
+    margin-left: auto;
+
+    color: #1795ce;
+
+    font-style: italic;
+
+    font-size: 16px;
+}
+
+
+/* =====================================
+   CALENDARIO INTERNO
+===================================== */
+
+.calendario {
+    border: 1px solid #d4eef9;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    background: white;
+}
+
+
+/* MES */
+
+.mes {
+    height: 74px;
+
+    background: linear-gradient(
+        90deg,
+        #229bd0,
+        #2092c6
+    );
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 20px;
+}
+
+.mes h3 {
+    font-size: 25px;
+}
+
+.mes button {
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 38px;
+
+    cursor: pointer;
+
+    width: 40px;
+    height: 50px;
+
+    transition: 0.2s;
+}
+
+.mes button:hover {
+    transform: scale(1.2);
+}
+
+
+/* DÍAS DE SEMANA */
+
+.dias-semana {
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    background: #f1fbff;
+
+    padding: 10px 8px 5px;
+}
+
+.dias-semana span {
+    text-align: center;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    color: #1175a6;
+}
+
+
+/* DÍAS */
+
+.dias {
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    padding: 0 8px 8px;
+}
+
+.dia {
+    height: 55px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border: 1px solid #e5f4fa;
+
+    color: #2e607e;
+
+    font-size: 16px;
+
+    background: white;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.dia:hover {
+    background: #e9f8ff;
+}
+
+
+/* DÍAS VACÍOS */
+
+.vacio {
+    background: #fbfeff;
+
+    cursor: default;
+}
+
+
+/* FECHAS IMPORTANTES */
+
+.dia.importante {
+    position: relative;
+
+    font-weight: bold;
+}
+
+.dia.importante::before {
+    content: "";
+
+    position: absolute;
+
+    width: 46px;
+    height: 46px;
+
+    background: #209ed5;
+
+    border-radius: 50%;
+
+    z-index: 0;
+}
+
+.dia.importante span {
+    position: relative;
+
+    z-index: 1;
+
+    color: white;
+}
+
+
+/* =====================================
+   REFERENCIAS
+===================================== */
+
+.referencias {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background: #eefaff;
+
+    padding: 14px 18px;
+
+    margin: 15px;
+
+    border-radius: 14px;
+
+    color: #3d6680;
+
+    font-size: 14px;
+}
+
+.referencias div {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.circulo {
+    width: 20px;
+    height: 20px;
+
+    display: inline-block;
+
+    border-radius: 50%;
+}
+
+.circulo.importante {
+    background: #209ed5;
+}
+
+.circulo.normal {
+    background: #b9e7f8;
+}
+
+
+/* =====================================
+   MENSAJE FINAL
+===================================== */
+
+.mensaje-calendario {
+    margin-top: 15px;
+
+    background: #e5f7ff;
+
+    border-radius: 15px;
+
+    min-height: 100px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 22px;
+
+    padding: 15px;
+}
+
+.icono-mensaje {
+    font-size: 38px;
+
+    padding-right: 20px;
+
+    border-right: 2px solid #8bd4ee;
+}
+
+.mensaje-calendario p {
+    text-align: center;
+
+    color: #4b7892;
+
+    font-size: 17px;
+
+    font-style: italic;
+
+    line-height: 1.5;
+}
+
+.mensaje-calendario > span {
+    color: #3aa9d5;
+
+    font-size: 28px;
+}
+
+
+/* =====================================
+   RESPONSIVE - TABLET
+===================================== */
+
+@media (max-width: 1100px) {
+
+    .contenedor-principal {
+        grid-template-columns: 1fr;
+    }
+
+    .encabezado h1 {
+        font-size: 43px;
+    }
+
+}
+
+
+/* =====================================
+   RESPONSIVE - CELULAR
+===================================== */
+
+@media (max-width: 700px) {
+
+    .encabezado {
+        padding-top: 25px;
+    }
+
+    .encabezado h1 {
+        font-size: 34px;
+    }
+
+    .encabezado p {
+        font-size: 17px;
+    }
+
+    .contenedor-principal {
+        width: 95%;
+    }
+
+    .titulo-seccion h2,
+    .titulo-calendario h2 {
+        font-size: 23px;
+    }
+
+    .ver-todas {
+        display: none;
+    }
+
+    .tarjeta-novedad {
+        flex-wrap: wrap;
+    }
+
+    .tarjeta-novedad img {
+        width: 100%;
+        height: 180px;
+    }
+
+    .informacion {
+        width: 100%;
+    }
+
+    .fecha {
+        width: 65px;
+    }
+
+    .texto-decorativo {
+        display: none;
+    }
+
+    .mes h3 {
+        font-size: 20px;
+    }
+
+    .dia {
+        height: 45px;
+        font-size: 14px;
+    }
+
+    .dia.importante::before {
+        width: 36px;
+        height: 36px;
+    }
+
+    .referencias {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+}
