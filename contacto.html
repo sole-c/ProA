@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacto | ProA</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#00355f',
+              secondary: '#006590',
+              surface: '#ffffff',
+              "surface-variant": '#eaf4fb',
+              "surface-container": '#f5f7fa',
+              "primary-container": '#0f4c81',
+              "on-surface": '#191c1e',
+              "on-surface-variant": '#42474f',
+              "on-primary": '#ffffff',
+              "on-secondary-container": '#005074',
+              "secondary-container": '#6ec6ff',
+            },
+            fontFamily: {
+              sans: ['Poppins', 'sans-serif'],
+              display: ['Montserrat', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      .hero-pattern {
+        background-image: linear-gradient(rgba(0, 53, 95, 0.72), rgba(0, 53, 95, 0.78)),
+          url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80');
+        background-size: cover;
+        background-position: center;
+      }
+
+      .menu-toggle {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(15, 76, 129, 0.15);
+        border-radius: 10px;
+        padding: 8px;
+        cursor: pointer;
+        display: inline-flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .menu-toggle .bar {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #00355f;
+        border-radius: 2px;
+        transition: transform .2s ease, opacity .2s ease;
+      }
+
+      .menu-toggle.active .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+      .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+      .menu-toggle.active .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+      .site-menu {
+        position: fixed;
+        top: 80px;
+        left: 16px;
+        right: 16px;
+        background: rgba(0, 53, 95, 0.96);
+        border-radius: 14px;
+        box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+        transform: translateY(-12px) scaleY(0);
+        transform-origin: top;
+        opacity: 0;
+        pointer-events: none;
+        transition: all .25s ease;
+        z-index: 60;
+      }
+
+      .site-menu.open {
+        transform: translateY(0) scaleY(1);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .site-menu ul {
+        list-style: none;
+        padding: 12px 14px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .site-menu a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-weight: 500;
+      }
+
+      .site-menu a:hover {
+        background: rgba(255,255,255,0.08);
+      }
+
+      @media (min-width: 1024px) {
+        .site-menu {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-on-surface antialiased">
+    <nav class="bg-surface/90 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm fixed top-0 w-full z-50 transition-all duration-200 ease-in-out">
+      <div class="flex justify-between items-center px-4 md:px-10 h-20 max-w-7xl mx-auto w-full">
+        <div class="flex items-center gap-2 min-w-[160px]">
+          <a href="index.html" class="flex items-center gap-2">
+            <img
+              alt="ProA Logo"
+              class="h-10 w-auto"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYoO4cclFVk8Gn9Guol5GSkULCoDOwjdgkgI_3aFc-uVAq9ybWdtTiDRfSZam545L8KoZDMithupT1BMKk36B_tzN88PtZMnMiLsjxtEJx4_chehjhz9EREW-gVny38dNXZgJ5GiwuZ1WEgF9ANnOL48IC9mtNOuYLWlogkGvkbhzgbGOGsNo612cPOP16mRgbJrUfUfCRzbAbd3WWnSq6IykNKPKNF_MlLacsMPWoL8VJ-glB0h9V"
+            />
+            <span class="font-h2 text-h2 font-bold text-primary dark:text-inverse-primary hidden md:block">ProA</span>
+          </a>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-8">
+          <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="index.html">Inicio</a>
+          <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="institucion.html">Sobre la Institución</a>
+          <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="instalaciones.html">Instalaciones</a>
+          <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="novedades.html">Novedades</a>
+          <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="planes.html">Planes de Estudio</a>
+          <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="equipo.html">Equipo de Orientación</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a class="hidden md:inline-flex bg-[#006590] text-white px-5 py-2.5 rounded-lg font-label-bold text-label-bold hover:opacity-90 transition-opacity items-center gap-xs shadow-md" href="contacto.html">
+            Contacto
+          </a>
+          <button class="menu-toggle lg:hidden" aria-label="Abrir menú" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="site-menu" aria-hidden="true">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="institucion.html">Sobre la Institución</a></li>
+        <li><a href="instalaciones.html">Instalaciones</a></li>
+        <li><a href="novedades.html">Novedades</a></li>
+        <li><a href="planes.html">Planes</a></li>
+        <li><a href="equipo.html">Equipo</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+
+    <main class="pt-24">
+      <section class="hero-pattern text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+          <div class="max-w-2xl">
+            <p class="uppercase tracking-[0.2em] text-blue-200 text-sm font-semibold mb-4">Contacto</p>
+            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">Contacto y Ubicación</h1>
+            <p class="text-lg text-blue-100 max-w-xl">
+              Estamos a su disposición para responder cualquier consulta. No dude en comunicarse con nosotros por cualquiera de nuestros canales.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-1 space-y-6">
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-sky-100 text-secondary p-3 rounded-xl">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684L9.5 5.5a1 1 0 01-.42 1.12l-2.16 1.44A15.96 15.96 0 0017.96 20l1.44-2.16a1 1 0 011.12-.42l2.816.772A1 1 0 0022 17.72V21a2 2 0 01-2 2h-1C10.82 23 1 13.18 1 6V5a2 2 0 012-2z" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-primary">Teléfono</h3>
+              </div>
+              <p class="text-slate-700">5867177</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-sky-100 text-secondary p-3 rounded-xl">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-primary">Email</h3>
+              </div>
+              <p class="text-slate-700">cordobanorte.ds@escuelasproa.edu.ar</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-sky-100 text-secondary p-3 rounded-xl">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-primary">Dirección</h3>
+              </div>
+              <p class="text-slate-700">Escuela ProA (Escuela Experimental con enfasis en Tic Sede Capital Norte)</p>
+            </div>
+          </div>
+
+          <div class="lg:col-span-2">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 md:p-8">
+              <h2 class="text-3xl font-bold text-primary mb-2">Ubicación</h2>
+              <p class="text-slate-600 mb-6">Escuela ProA (Escuela Experimental con énfasis en TIC Sede Capital Norte)</p>
+
+              <div class="rounded-2xl overflow-hidden border border-slate-200">
+                <iframe
+                  title="Mapa de ubicación"
+                  src="https://www.google.com/maps?q=Escuela%20ProA%20Capital%20Norte&z=15&output=embed"
+                  class="w-full h-[380px] border-0"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="bg-primary text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+        <p>© 2024 ProA. Excelencia Educativa. Todos los derechos reservados.</p>
+        <div class="flex gap-6">
+          <a href="index.html" class="hover:text-sky-200 transition">Inicio</a>
+          <a href="institucion.html" class="hover:text-sky-200 transition">Institución</a>
+          <a href="contacto.html" class="hover:text-sky-200 transition">Contacto</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
