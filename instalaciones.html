@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduProA - Instalaciones</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#006590",
+                        "on-primary-fixed": "#001c37",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline": "#727780",
+                        "surface-tint": "#2d6197",
+                        "on-surface-variant": "#42474f",
+                        "inverse-primary": "#a0c9ff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e6e8eb",
+                        "surface-container-highest": "#e0e3e6",
+                        "surface": "#ffffff",
+                        "outline-variant": "#c2c7d1",
+                        "on-secondary-fixed": "#001e2f",
+                        "tertiary-fixed": "#ffdad6",
+                        "on-primary-container": "#8ebdf9",
+                        "primary": "#00355f",
+                        "tertiary-container": "#9a000e",
+                        "primary-fixed": "#d2e4ff",
+                        "surface-container-low": "#f5f7fa",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#c8e6ff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1e",
+                        "primary-container": "#0f4c81",
+                        "on-tertiary-container": "#ffa298",
+                        "secondary-container": "#6ec6ff",
+                        "surface-container": "#eceef1",
+                        "on-secondary-fixed-variant": "#004c6e",
+                        "surface-bright": "#f7f9fc",
+                        "on-tertiary-fixed-variant": "#93000d",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "inverse-on-surface": "#eff1f4",
+                        "primary-fixed-dim": "#a0c9ff",
+                        "on-secondary-container": "#005074",
+                        "background": "#ffffff",
+                        "surface-dim": "#d8dadd",
+                        "secondary-fixed-dim": "#88ceff",
+                        "on-tertiary-fixed": "#410002",
+                        "surface-variant": "#d9f3ff",
+                        "tertiary": "#6f0007",
+                        "on-primary-fixed-variant": "#07497d",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2d3133",
+                        "red-label": "#E53935"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "margin-desktop": "40px",
+                        "md": "24px",
+                        "xl": "80px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Poppins"],
+                        "h3": ["Montserrat"],
+                        "h2": ["Montserrat"],
+                        "body-md": ["Poppins"],
+                        "caption": ["Poppins"],
+                        "h1": ["Montserrat"],
+                        "label-bold": ["Poppins"],
+                        "body-lg": ["Poppins"],
+                        "h1-mobile": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "h2": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "caption": ["12px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h1-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Poppins', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .ambient-shadow { box-shadow: 0px 4px 12px rgba(15, 76, 129, 0.08); }
+        .hover-shadow:hover { box-shadow: 0px 8px 24px rgba(15, 76, 129, 0.12); }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="bg-surface/90 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm fixed top-0 w-full z-50 transition-all duration-200 ease-in-out">
+  <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-7xl mx-auto w-full">
+    <div class="flex items-center gap-xs">
+      <img alt="ProA Logo" class="h-14 w-auto" data-alt="A modern, high-quality vector logo for an educational institution named ProA" src="logo.png"/>
+      <span class="font-h2 text-h2 font-bold text-primary dark:text-inverse-primary hidden md:block">ProA</span>
+    </div>
+    <div class="hidden lg:flex items-center gap-md">
+      <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="index.html">Inicio</a>
+      <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="institucion.html">Sobre la Institución</a>
+      <a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-bold text-label-bold hover:opacity-80 transition-opacity" href="instalaciones.html">Instalaciones</a>
+      <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="novedades.html">Novedades</a>
+      <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="planes.html">Planes de Estudio</a>
+      <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="equipo.html">Equipo de Orientación</a>
+    </div>
+    <a class="hidden md:inline-flex bg-secondary-container text-on-secondary-container px-md py-sm rounded-lg font-label-bold text-label-bold hover:opacity-80 transition-opacity items-center gap-xs" href="contacto.html">Contacto</a>
+    <button class="lg:hidden text-primary">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Instalaciones -->
+<section class="py-xl bg-surface-variant" id="instalaciones">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-lg">
+<h2 class="font-h2 text-h2 text-primary-container mb-xs">Instalaciones</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Espacios diseñados para el aprendizaje, la creatividad y el desarrollo integral.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden ambient-shadow hover-shadow transition-shadow">
+<img alt="Aulas" class="w-full h-48 object-cover" src="aula.jpg"/>
+<div class="p-md">
+<h3 class="font-h3 text-h3 text-primary-container">Aulas</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden ambient-shadow hover-shadow transition-shadow">
+<img alt="Cursos" class="w-full h-48 object-cover" src="cursos.jpg"/>
+<div class="p-md">
+<h3 class="font-h3 text-h3 text-primary-container">Cursos</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden ambient-shadow hover-shadow transition-shadow">
+<img alt="Escuela" class="w-full h-48 object-cover" src="cole.jpg"/>
+<div class="p-md">
+<h3 class="font-h3 text-h3 text-primary-container">Escuela</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden ambient-shadow hover-shadow transition-shadow">
+<img alt="Patio" class="w-full h-48 object-cover" src="patio.jpg"/>
+<div class="p-md">
+<h3 class="font-h3 text-h3 text-primary-container">Patio</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden ambient-shadow hover-shadow transition-shadow">
+<img alt="Pasillo" class="w-full h-48 object-cover" src="pasillo.jpg"/>
+<div class="p-md">
+<h3 class="font-h3 text-h3 text-primary-container">Pasillo</h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</body></html>
