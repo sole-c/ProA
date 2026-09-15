@@ -1,0 +1,167 @@
+/* ================================
+   PLANES DE ESTUDIO - GREENUP / ProA
+   ================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f5f9fc;
+  color: #16476b;
+}
+
+/* Sección completa */
+#planes {
+  background-color: #dff3fc;
+  padding: 70px 40px;
+}
+
+/* Contenedor */
+.max-w-7xl {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Título y descripción */
+.text-center {
+  text-align: center;
+}
+
+.mb-lg {
+  margin-bottom: 45px;
+}
+
+#planes h2 {
+  color: #064b78;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+#planes>div>div>p {
+  color: #385b73;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Grid de las tarjetas */
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.gap-gutter {
+  gap: 30px;
+}
+
+/* Tarjetas */
+.bg-surface-container-lowest {
+  background-color: #ffffff;
+}
+
+.p-md {
+  padding: 32px;
+}
+
+.rounded-xl {
+  border-radius: 18px;
+}
+
+.ambient-shadow {
+  box-shadow: 0 5px 15px rgba(0, 60, 100, 0.10);
+}
+
+.transition-shadow {
+  transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.hover-shadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 70, 120, 0.18);
+}
+
+/* Iconos */
+.material-symbols-outlined {
+  color: #0083bd;
+  font-size: 40px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+/* Títulos de las tarjetas */
+#planes h3 {
+  color: #07517f;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+/* Texto */
+#planes p {
+  color: #526b7d;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Listas */
+#planes ul {
+  padding-left: 22px;
+  color: #526b7d;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+#planes li::marker {
+  color: #0088c2;
+}
+
+/* ================================
+   TABLET / COMPUTADORA
+   ================================ */
+
+@media (min-width: 768px) {
+
+  .grid-cols-1.md\:grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .md\:px-margin-desktop {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* ================================
+   CELULAR
+   ================================ */
+
+@media (max-width: 767px) {
+
+  #planes {
+    padding: 50px 20px;
+  }
+
+  #planes h2 {
+    font-size: 32px;
+  }
+
+  #planes>div>div>p {
+    font-size: 16px;
+  }
+
+  .p-md {
+    padding: 25px;
+  }
+
+  #planes h3 {
+    font-size: 23px;
+  }
+}
