@@ -1,0 +1,353 @@
+:root {
+  /* Paleta de Colores ProA */
+  --color-primary: #1976D2;
+  --color-primary-container: #0D47A1;
+  --color-secondary-container: #5E9AB5;
+  --color-on-primary: #FFFFFF;
+
+  --color-background: #F8F9FA;
+  --color-surface-variant: #E1E8ED;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-surface-container-low: #F5F7FA;
+  --color-on-surface-variant: #334155;
+  --color-outline-variant: #CBD5E1;
+
+  /* Espaciado */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-gutter: 1.5rem;
+
+  --margin-mobile: 1.25rem;
+  --margin-desktop: 2.5rem;
+
+  /* Sombras y Bordes */
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --shadow-ambient: 0 10px 25px -5px rgba(0, 0, 0, 0.05),
+                    0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.1),
+                  0 10px 20px -10px rgba(0, 0, 0, 0.08);
+
+  /* Tipografía */
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                 Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-background);
+  color: var(--color-on-surface-variant);
+}
+
+/* ========================================================================
+   ESPACIADO Y LAYOUT
+   ======================================================================== */
+
+.py-xl {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+}
+
+.px-margin-mobile {
+  padding-left: var(--margin-mobile);
+  padding-right: var(--margin-mobile);
+}
+
+.max-w-7xl {
+  max-width: 80rem;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mb-xs {
+  margin-bottom: var(--space-xs);
+}
+
+.mb-sm {
+  margin-bottom: var(--space-sm);
+}
+
+.mb-md {
+  margin-bottom: var(--space-md);
+}
+
+.mb-lg {
+  margin-bottom: var(--space-lg);
+}
+
+.p-md {
+  padding: var(--space-md);
+}
+
+.p-lg {
+  padding: var(--space-lg);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ========================================================================
+   BACKGROUND COLORS
+   ======================================================================== */
+
+.bg-background {
+  background-color: var(--color-background);
+}
+
+.bg-surface-container-lowest {
+  background-color: var(--color-surface-container-lowest);
+}
+
+.bg-surface-container-low {
+  background-color: var(--color-surface-container-low);
+}
+
+.bg-surface-variant {
+  background-color: var(--color-surface-variant);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+/* ========================================================================
+   BORDER RADIUS
+   ======================================================================== */
+
+.rounded-xl {
+  border-radius: var(--radius-xl);
+}
+
+.rounded-2xl {
+  border-radius: var(--radius-2xl);
+}
+
+/* ========================================================================
+   TIPOGRAFÍA - HEADINGS
+   ======================================================================== */
+
+.font-h2,
+.text-h2 {
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+
+.font-h3,
+.text-h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+}
+
+.font-body-md,
+.text-body-md {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.font-body-sm,
+.text-body-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.font-label-bold,
+.text-label-bold {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* ========================================================================
+   COLORES DE TEXTO
+   ======================================================================== */
+
+.text-primary-container {
+  color: var(--color-primary-container);
+}
+
+.text-secondary-container {
+  color: var(--color-secondary-container);
+}
+
+.text-on-primary {
+  color: var(--color-on-primary);
+}
+
+.text-on-surface-variant {
+  color: var(--color-on-surface-variant);
+}
+
+/* ========================================================================
+   FLEXBOX
+   ======================================================================== */
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-xl {
+  gap: var(--space-xl);
+}
+
+/* ========================================================================
+   GRID
+   ======================================================================== */
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.gap-gutter {
+  gap: var(--space-gutter);
+}
+
+.w-full {
+  width: 100%;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.text-left {
+  text-align: left;
+}
+
+/* ========================================================================
+   SOMBRAS
+   ======================================================================== */
+
+.ambient-shadow {
+  box-shadow: var(--shadow-ambient);
+}
+
+.hover-shadow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-shadow:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* ========================================================================
+   TRANSICIONES
+   ======================================================================== */
+
+.transition-shadow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* ========================================================================
+   EFECTOS DE TABLA
+   ======================================================================== */
+
+.divide-y > * + * {
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+
+.divide-outline-variant\/30 > * + * {
+  border-color: rgba(203, 213, 225, 0.3);
+}
+
+tbody tr:hover {
+  background-color: rgba(25, 118, 210, 0.04);
+}
+
+/* ========================================================================
+   RESPONSIVE - TABLET (768px+)
+   ======================================================================== */
+
+@media (min-width: 768px) {
+  .md\:px-margin-desktop {
+    padding-left: var(--margin-desktop);
+    padding-right: var(--margin-desktop);
+  }
+
+  .md\:p-xl {
+    padding: var(--space-xl);
+  }
+
+  .md\:flex-row {
+    flex-direction: row;
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ========================================================================
+   RESPONSIVE - DESKTOP (1024px+)
+   ======================================================================== */
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lg\:p-xl {
+    padding: var(--space-xl);
+  }
+}
+
+/* ========================================================================
+   ICONOS - MATERIAL SYMBOLS
+   ======================================================================== */
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+.text-\[40px\] {
+  font-size: 40px;
+}
+
+.block {
+  display: block;
+}
