@@ -7,29 +7,70 @@
     <title>Novedades y Efemérides</title>
 
     <link rel="stylesheet" href="novedades.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        surface: "#ffffff",
+                        "surface-dim": "#d8dadd",
+                        "secondary-container": "#6ec6ff",
+                        "on-secondary-container": "#005074",
+                        primary: "#00355f",
+                        "on-surface-variant": "#42474f"
+                    },
+                    spacing: {
+                        sm: "12px",
+                        xs: "4px",
+                        md: "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    fontFamily: {
+                        "body-sm": ["Poppins"],
+                        h2: ["Montserrat"],
+                        "label-bold": ["Poppins"]
+                    },
+                    fontSize: {
+                        h2: ["32px", { lineHeight: "1.3" }],
+                        "body-sm": ["14px", { lineHeight: "1.5" }],
+                        "label-bold": ["14px", { lineHeight: "1.2" }]
+                    }
+                }
+            }
+        };
+    </script>
 </head>
+<body class="bg-background text-on-surface antialiased overflow-x-hidden">
 
-<body>
- <nav class="bg-surface/90 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm fixed top-0 w-full z-50 transition-all duration-200 ease-in-out">
-    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-7xl mx-auto w-full">
-      <div class="flex items-center gap-xs">
-        <img alt="ProA Logo" class="h-14 w-auto" data-alt="A modern, high-quality vector logo for an educational institution named ProA" src="logo.png" />
-        <span class="font-h2 text-h2 font-bold text-primary dark:text-inverse-primary hidden md:block">ProA</span>
-      </div>
-      <div class="hidden lg:flex items-center gap-md">
-        <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="index.html">Inicio</a>
-        <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="sobrelainstitucion.html">Sobre la Institución</a>
-        <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="instalaciones.html">Instalaciones</a>
-        <a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-bold text-label-bold hover:opacity-80 transition-opacity" href="novedades.html">Novedades</a>
-        <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="planes.html">Planes de Estudio</a>
-        <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="equipodeorientacion.html">Equipo de Orientación</a>
-      </div>
-      <a class="hidden md:inline-flex bg-secondary-container text-on-secondary-container px-md py-sm rounded-lg font-label-bold text-label-bold hover:opacity-80 transition-opacity items-center gap-xs" href="contacto.html">Contacto</a>
-      <button class="lg:hidden text-primary">
-        <span class="material-symbols-outlined">menu</span>
-      </button>
-    </div>
-  </nav>
+    <!-- TopNavBar -->
+    <nav class="bg-surface/90 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm fixed top-0 w-full z-50 transition-all duration-200 ease-in-out">
+        <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-7xl mx-auto w-full">
+            <div class="flex items-center gap-xs">
+                <img alt="ProA Logo" class="h-14 w-auto" data-alt="A modern, high-quality vector logo for an educational institution named ProA" src="logo.png"/>
+                <span class="font-h2 text-h2 font-bold text-primary dark:text-inverse-primary hidden md:block">ProA</span>
+            </div>
+            <div class="hidden lg:flex items-center gap-md">
+                <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="inicio.html">Inicio</a>
+                <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="sobrelainstitucion.html">Sobre la Institución</a>
+                <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="instalaciones.html">Instalaciones</a>
+                <a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-bold text-label-bold hover:opacity-80 transition-opacity" href="novedades.html">Novedades</a>
+                <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="planes.html">Planes de Estudio</a>
+                <a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="equipodeorientacion.html">Equipo de Orientación</a>
+            </div>
+            <a class="hidden md:inline-flex bg-secondary-container text-on-secondary-container px-md py-sm rounded-lg font-label-bold text-label-bold hover:opacity-80 transition-opacity items-center gap-xs" href="contacto.html">Contacto</a>
+            <button class="lg:hidden text-primary">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- =========================
+         ENCABEZADO
+    ========================== -->
 
     <header class="encabezado">
 
@@ -268,8 +309,7 @@
                 <span>♡</span>
 
             </div>
-
-
+         
         </section>
 
     </main>

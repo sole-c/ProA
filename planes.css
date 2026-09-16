@@ -9,11 +9,17 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f5f9fc;
-  color: #16476b;
-}
+    font-family: Arial, Helvetica, sans-serif;
 
+    background:
+        radial-gradient(circle at 0% 10%, #c9efff 0, #c9efff 85px, transparent 86px),
+        radial-gradient(circle at 95% 0%, #c5edff 0, #c5edff 150px, transparent 151px),
+        linear-gradient(135deg, #f8fdff, #eaf8ff);
+
+    min-height: 100vh;
+
+    color: #12527d;
+}
 /* Sección completa */
 #planes {
   background-color: #dff3fc;
@@ -165,3 +171,4 @@ body {
     font-size: 23px;
   }
 }
+
