@@ -733,3 +733,177 @@ body {
     }
 
 }
+/* Variables de color según la imagen */
+:root {
+  --bg-surface: rgba(230, 243, 250, 0.95); /* Azul claro de fondo */
+  --text-primary: #0f3854;                /* Azul oscuro/marino para el texto principal y logo */
+  --text-variant: #6b7c93;                /* Gris azulado para los links */
+  --btn-bg: #61c0f4;                      /* Azul brillante para el botón Contacto */
+  --btn-text: #ffffff;                    /* Blanco para el texto del botón */
+  
+  --gap-xs: 0.5rem;
+  --gap-md: 1.75rem;
+  --px-mobile: 1rem;
+  --px-desktop: 2.5rem;
+}
+
+/* 1. Estructura y Navegación Principal */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  background-color: var(--bg-surface);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 200ms ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.max-w-7xl {
+  max-width: 80rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-20 {
+  height: 5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.px-margin-mobile {
+  padding-left: var(--px-mobile);
+  padding-right: var(--px-mobile);
+}
+
+@media (min-width: 768px) {
+  .md\:px-margin-desktop {
+    padding-left: var(--px-desktop);
+    padding-right: var(--px-desktop);
+  }
+}
+
+/* 2. Brand / Logo */
+.gap-xs {
+  gap: var(--gap-xs);
+}
+
+.h-14 {
+  height: 3.5rem;
+}
+
+.w-auto {
+  width: auto;
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-h2 {
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+/* 3. Menú de Enlaces */
+.gap-md {
+  gap: var(--gap-md);
+}
+
+nav a {
+  text-decoration: none;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.95rem;
+}
+
+.text-on-surface-variant {
+  color: var(--text-variant);
+}
+
+.hover\:text-primary:hover {
+  color: var(--text-primary);
+}
+
+.transition-colors {
+  transition: color 150ms ease-in-out;
+}
+
+.hover\:opacity-80:hover {
+  opacity: 0.8;
+}
+
+.transition-opacity {
+  transition: opacity 150ms ease-in-out;
+}
+
+/* Enlace activo ("Instalaciones") */
+.border-b-2 {
+  border-bottom: 2px solid var(--text-primary);
+}
+
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+
+/* 4. Botón de Contacto */
+.bg-secondary-container {
+  background-color: var(--btn-bg) !important;
+  color: var(--btn-text) !important;
+  font-weight: 600;
+  border-radius: 0.75rem;
+}
+
+.px-md {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.py-sm {
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+/* 5. Reglas Responsive */
+.hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .md\:block {
+    display: block;
+  }
+  .md\:inline-flex {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:flex {
+    display: flex;
+  }
+  .lg\:hidden {
+    display: none;
+  }
+}
