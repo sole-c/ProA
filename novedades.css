@@ -907,3 +907,26 @@ nav a {
     display: none;
   }
 }
+/* =====================================
+   FECHA ACTUAL
+===================================== */
+
+.fecha-actual {
+    margin-top: 18px;
+
+    display: inline-block;
+
+    background: #e1f6ff;
+
+    color: #28789e;
+
+    padding: 9px 18px;
+
+    border-radius: 25px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    box-shadow: 0 3px 10px rgba(50, 160, 210, 0.08);
+}

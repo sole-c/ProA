@@ -1,8 +1,8 @@
-// =====================================
-// CALENDARIO
-// =====================================
+// ==========================================
+// NOMBRES DE LOS MESES
+// ==========================================
 
-const nombreMeses = [
+const nombresMeses = [
     "Enero",
     "Febrero",
     "Marzo",
@@ -18,9 +18,35 @@ const nombreMeses = [
 ];
 
 
-// Fecha que se muestra inicialmente
+// ==========================================
+// NOMBRES DE LOS DÍAS
+// ==========================================
 
-let fechaCalendario = new Date(2026, 9, 1);
+const nombresDias = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado"
+];
+
+
+// ==========================================
+// FECHA ACTUAL DEL DISPOSITIVO
+// ==========================================
+
+const ahora = new Date();
+
+
+// El calendario comienza en el mes actual
+
+let fechaCalendario = new Date(
+    ahora.getFullYear(),
+    ahora.getMonth(),
+    1
+);
 
 
 // =====================================
@@ -60,6 +86,22 @@ function crearCalendario() {
 
     const mes = fechaCalendario.getMonth();
 
+    mesActual.textContent =
+        nombresMeses[mes] + " " + año;
+
+    diasCalendario.innerHTML = "";
+
+    const hoyReal = new Date();
+
+if (
+    dia === hoyReal.getDate() &&
+    mes === hoyReal.getMonth() &&
+    año === hoyReal.getFullYear()
+) {
+    elemento.classList.add("hoy");
+}
+
+    // resto del código...
 
     // Mostrar nombre del mes
 
@@ -73,6 +115,7 @@ function crearCalendario() {
 
 
     // Primer día del mes
+ 
 
     const primerDia =
         new Date(año, mes, 1).getDay();
@@ -185,5 +228,45 @@ botonSiguiente.addEventListener("click", function () {
 // =====================================
 // INICIAR CALENDARIO
 // =====================================
+
+// ==========================================
+// FECHA ACTUAL
+// ==========================================
+
+const fechaActual =
+    document.getElementById("fechaActual");
+
+
+function actualizarFecha() {
+
+
+    const fechaTexto =
+        fecha.toLocaleDateString(
+            "es-AR",
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    fechaActual.textContent =
+        fechaTexto.charAt(0).toUpperCase()
+        + fechaTexto.slice(1);
+}
+const hoy = new Date();
+
+if (
+    dia === hoy.getDate() &&
+    mes === hoy.getMonth() &&
+    año === hoy.getFullYear()
+) {
+
+    elemento.classList.add("hoy");
+
+}
+
+actualizarFecha();
 
 crearCalendario();
