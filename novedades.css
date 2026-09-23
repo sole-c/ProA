@@ -930,3 +930,69 @@ nav a {
 
     box-shadow: 0 3px 10px rgba(50, 160, 210, 0.08);
 }
+/* =====================================
+   ESTILO DEL DÍA ACTUAL (HOY)
+===================================== */
+
+.dia.hoy {
+    background: #d0f0ff !important;
+    border: 2px solid #0077b6 !important;
+    color: #00355f !important;
+    font-weight: 800 !important;
+    box-shadow: 0 0 6px rgba(0, 119, 182, 0.3);
+}
+
+/* Si el día actual coincide con una fecha importante */
+.dia.hoy.importante {
+    background: #0077b6 !important;
+    color: #ffffff !important;
+    border: 2px solid #00355f !important;
+}
+/* VENTANA EMERGENTE (MODAL) Y ANIMACIÓN */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(7, 40, 65, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-contenido {
+    background: #ffffff;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    padding: 25px;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0, 50, 90, 0.25);
+}
+
+.modal-cerrar {
+    position: absolute;
+    top: 15px; right: 20px;
+    background: #eef8fc;
+    border: none;
+    font-size: 26px;
+    color: #07517e;
+    cursor: pointer;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+}
+
+.dia.destacado-animado {
+    animation: pulsoFecha 1.2s infinite ease-in-out;
+}
+
+@keyframes pulsoFecha {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); box-shadow: 0 0 12px rgba(32, 158, 213, 0.8); }
+}

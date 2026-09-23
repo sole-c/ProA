@@ -105,9 +105,7 @@
 
                 <h2>Últimas Novedades</h2>
 
-                <a href="#" class="ver-todas">
-                    Ver todas →
-                </a>
+               <a href="#seccionCalendario" id="btnVerTodas" class="ver-todas"></a>
 
             </div>
 
@@ -136,9 +134,7 @@
                         y trabajos realizados durante el año.
                     </p>
 
-                    <button class="boton-ver">
-                        Ver más →
-                    </button>
+                    <button class="boton-ver" data-evento="ciencia">Ver más →</button>
 
                 </div>
 
@@ -169,9 +165,7 @@
                         y su acompañamiento en la educación.
                     </p>
 
-                    <button class="boton-ver">
-                        Ver más →
-                    </button>
+                 <button class="boton-ver" data-evento="Día de la Familia">Ver más →</button>
 
                 </div>
 
@@ -202,9 +196,7 @@
                         para el próximo ciclo lectivo.
                     </p>
 
-                    <button class="boton-ver">
-                        Ver más →
-                    </button>
+                    <button class="boton-ver" data-evento="Inscripciones Abiertas">Ver más →</button>
 
                 </div>
 
@@ -215,7 +207,7 @@
 
 
 
-        <section class="seccion-calendario">
+        <section class="seccion-calendario" id="seccionCalendario">
 
             <div class="titulo-calendario">
 
@@ -325,9 +317,13 @@
         </section>
 
     </main>
+<div id="modalNovedad" class="modal-overlay hidden">
+    <div class="modal-contenido">
+        <button id="cerrarModal" class="modal-cerrar">&times;</button>
+        <div id="modalCuerpo"></div>
+    </div>
+</div>
 
-
-    <script src="novedades.js"></script>
     <script src="novedades.js"></script>
 
 </body>

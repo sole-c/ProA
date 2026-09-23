@@ -1,272 +1,173 @@
-// ==========================================
-// NOMBRES DE LOS MESES
-// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Acción del botón "Ver todas" (Desplaza al calendario y resalta fechas)
+document.getElementById('btnVerTodas').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('seccionCalendario').scrollIntoView({ behavior: 'smooth' });
+    
+    const diasImportantes = document.querySelectorAll('.dia.importante');
+    diasImportantes.forEach(dia => dia.classList.add('destacado-animado'));
+    setTimeout(() => {
+        diasImportantes.forEach(dia => dia.classList.remove('destacado-animado'));
+    }, 3000);
+});
 
-const nombresMeses = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre"
-];
+// Acción de los botones "Ver más" (Abre la ventana modal)
+const modal = document.getElementById('modalNovedad');
+const modalCuerpo = document.getElementById('modalCuerpo');
 
+document.querySelectorAll('.boton-ver').forEach(boton => {
+    boton.addEventListener('click', () => {
+        const eventoKey = boton.getAttribute('data-evento');
+        const info = informacionEventos[eventoKey];
+        if (info) {
+            modalCuerpo.innerHTML = `
+                <span style="background:#dff5ff; color:#0785c2; padding:4px 10px; border-radius:12px; font-size:12px; font-weight:bold;">${info.tipo}</span>
+                <h2 style="color:#07517e; font-size:22px; margin:10px 0;">${info.titulo}</h2>
+                <p style="color:#43657f; margin-bottom:10px;"><strong>Fecha:</strong> ${info.fecha} | <strong>Horario:</strong> ${info.horario}</p>
+                <p style="color:#43657f; margin-bottom:10px;"><strong>Lugar:</strong> ${info.lugar}</p>
+                <p style="color:#5c7990; font-size:14px; margin-bottom:15px;">${info.descripcion}</p>
+                <ul style="padding-left:20px; color:#2a5370; font-size:13px;">
+                    ${info.detalles.map(d => `<li>${d}</li>`).join('')}
+                </ul>
+            `;
+            modal.classList.remove('hidden');
+        }
+    });
+});
 
-// ==========================================
-// NOMBRES DE LOS DÍAS
-// ==========================================
-
-const nombresDias = [
-    "Domingo",
-    "Lunes",
-    "Martes",
-    "Miércoles",
-    "Jueves",
-    "Viernes",
-    "Sábado"
-];
-
-
-// ==========================================
-// FECHA ACTUAL DEL DISPOSITIVO
-// ==========================================
-
-const ahora = new Date();
-
-
-// El calendario comienza en el mes actual
-
-let fechaCalendario = new Date(
-    ahora.getFullYear(),
-    ahora.getMonth(),
-    1
-);
-
-
-// =====================================
-// FECHAS IMPORTANTES
-// =====================================
-
-const fechasImportantes = {
-    "2026-10-15": "Feria de Ciencias",
-    "2026-10-20": "Día de la Familia",
-    "2026-11-02": "Inscripciones Abiertas"
-};
-
-
-// =====================================
-// ELEMENTOS HTML
-// =====================================
-
-const mesActual = document.getElementById("mesActual");
-
-const diasCalendario =
-    document.getElementById("diasCalendario");
-
-const botonAnterior =
-    document.getElementById("mesAnterior");
-
-const botonSiguiente =
-    document.getElementById("mesSiguiente");
-
-
-// =====================================
-// CREAR CALENDARIO
-// =====================================
-
-function crearCalendario() {
-
-    const año = fechaCalendario.getFullYear();
-
-    const mes = fechaCalendario.getMonth();
-
-    mesActual.textContent =
-        nombresMeses[mes] + " " + año;
-
-    diasCalendario.innerHTML = "";
-
-    const hoyReal = new Date();
-
-if (
-    dia === hoyReal.getDate() &&
-    mes === hoyReal.getMonth() &&
-    año === hoyReal.getFullYear()
-) {
-    elemento.classList.add("hoy");
-}
-
-    // resto del código...
-
-    // Mostrar nombre del mes
-
-    mesActual.textContent =
-        nombreMeses[mes] + " " + año;
-
-
-    // Limpiar calendario anterior
-
-    diasCalendario.innerHTML = "";
-
-
-    // Primer día del mes
- 
-
-    const primerDia =
-        new Date(año, mes, 1).getDay();
-
-
-    // Cantidad de días del mes
-
-    const cantidadDias =
-        new Date(año, mes + 1, 0).getDate();
-
-
-    // =====================================
-    // ESPACIOS VACÍOS
-    // =====================================
-
-    for (let i = 0; i < primerDia; i++) {
-
-        const espacio = document.createElement("div");
-
-        espacio.classList.add("dia", "vacio");
-
-        diasCalendario.appendChild(espacio);
+// Cerrar Modal
+document.getElementById('cerrarModal').addEventListener('click', () => modal.classList.add('hidden'));
+modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
+    const informacionEventos = {
+    ciencia: {
+        titulo: "Feria de Ciencias e Innovación",
+        tipo: "Evento",
+        fecha: "15 de Octubre",
+        horario: "08:30 a 16:00 hs",
+        lugar: "Gimnasio Principal y Talleres ProA",
+        descripcion: "Muestra anual donde los alumnos presentan proyectos tecnológicos, software y robótica.",
+        detalles: ["Proyectos de automatización", "Videojuegos desarrollados por alumnos", "Entrada libre desde las 10:00 hs"]
+    },
+    familia: {
+        titulo: "Día de la Familia",
+        tipo: "Efeméride",
+        fecha: "20 de Octubre",
+        horario: "14:00 a 18:00 hs",
+        lugar: "Predio al Aire Libre",
+        descripcion: "Jornada de integración, juegos y recreación para toda la comunidad educativa.",
+        detalles: ["Juegos en equipo", "Mateada comunitaria", "Muestra artística estudiantil"]
+    },
+    inscripciones: {
+        titulo: "Inscripciones Abiertas 2027",
+        tipo: "Información",
+        fecha: "Desde el 02 de Noviembre",
+        horario: "08:00 a 13:00 hs",
+        lugar: "Secretaría / Web Oficial",
+        descripcion: "Apertura del proceso de pre-inscripción para ingresantes a 1° Año.",
+        detalles: ["Requisitos: DNI y ficha de pre-inscripción", "Constancia de 6° grado", "Formulario digital habilitado desde el 02/11"]
     }
+};
+    // 1. Referencias a los elementos del HTML
+    const elMesActual = document.getElementById('mesActual');
+    const elDiasCalendario = document.getElementById('diasCalendario');
+    const btnMesAnterior = document.getElementById('mesAnterior');
+    const btnMesSiguiente = document.getElementById('mesSiguiente');
+    const btnHoy = document.getElementById('botonHoy');
 
+    // 2. Estado inicial: fecha actual del sistema
+    let fechaNavegacion = new Date();
 
-    // =====================================
-    // CREAR DÍAS
-    // =====================================
+    // Nombres de meses en español
+    const meses = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
 
-    for (let dia = 1; dia <= cantidadDias; dia++) {
+    // Fechas destacadas / importantes (Formato: "AAAA-MM-DD")
+    // Podés modificar estas fechas o agregar las que necesites
+    const fechasImportantes = [
+        "2026-10-15", // Feria de Ciencias
+        "2026-10-20", // Día de la Familia
+        "2026-11-02"  // Inscripciones Abiertas
+    ];
 
-        const elementoDia =
-            document.createElement("div");
+    // 3. Función principal que renderiza y calcula los días automáticamente
+    function renderizarCalendario() {
+        const anio = fechaNavegacion.getFullYear();
+        const mes = fechaNavegacion.getMonth();
 
-        elementoDia.classList.add("dia");
+        // Muestra el nombre del mes y año en el encabezado
+        elMesActual.textContent = `${meses[mes]} ${anio}`;
 
+        // Limpia los días generados anteriormente
+        elDiasCalendario.innerHTML = '';
 
-        // Número del día
+        // Obtiene en qué día de la semana cae el día 1 del mes (0 = Dom, 1 = Lun, etc.)
+        const primerDiaSemana = new Date(anio, mes, 1).getDay();
 
-        const numero =
-            document.createElement("span");
+        // Obtiene la cantidad total de días del mes
+        const totalDiasMes = new Date(anio, mes + 1, 0).getDate();
 
-        numero.textContent = dia;
+        // Fecha de hoy real para marcar el día actual si coincide
+        const hoy = new Date();
 
-        elementoDia.appendChild(numero);
-
-
-        // Crear fecha YYYY-MM-DD
-
-        const mesNumero =
-            String(mes + 1).padStart(2, "0");
-
-        const diaNumero =
-            String(dia).padStart(2, "0");
-
-        const fecha =
-            `${año}-${mesNumero}-${diaNumero}`;
-
-
-        // =====================================
-        // VERIFICAR SI ES FECHA IMPORTANTE
-        // =====================================
-
-        if (fechasImportantes[fecha]) {
-
-            elementoDia.classList.add("importante");
-
-            elementoDia.title =
-                fechasImportantes[fecha];
+        // Genera los casilleros vacíos de alineación previa al día 1
+        for (let i = 0; i < primerDiaSemana; i++) {
+            const diaVacio = document.createElement('div');
+            diaVacio.classList.add('dia', 'vacio');
+            elDiasCalendario.appendChild(diaVacio);
         }
 
+        // Genera los días del mes actual
+        for (let dia = 1; dia <= totalDiasMes; dia++) {
+            const divDia = document.createElement('div');
+            divDia.classList.add('dia');
 
-        // =====================================
-        // AGREGAR AL CALENDARIO
-        // =====================================
+            // Formato 'AAAA-MM-DD' para verificar fechas importantes
+            const mesFormateado = String(mes + 1).padStart(2, '0');
+            const diaFormateado = String(dia).padStart(2, '0');
+            const fechaString = `${anio}-${mesFormateado}-${diaFormateado}`;
 
-        diasCalendario.appendChild(elementoDia);
-    }
-}
+            // Determina si este día es HOY
+            const esHoy = hoy.getFullYear() === anio &&
+                          hoy.getMonth() === mes &&
+                          hoy.getDate() === dia;
 
+            // Determina si es una FECHA IMPORTANTE
+            const esImportante = fechasImportantes.includes(fechaString);
 
-// =====================================
-// BOTÓN MES ANTERIOR
-// =====================================
-
-botonAnterior.addEventListener("click", function () {
-
-    fechaCalendario.setMonth(
-        fechaCalendario.getMonth() - 1
-    );
-
-    crearCalendario();
-});
-
-
-// =====================================
-// BOTÓN MES SIGUIENTE
-// =====================================
-
-botonSiguiente.addEventListener("click", function () {
-
-    fechaCalendario.setMonth(
-        fechaCalendario.getMonth() + 1
-    );
-
-    crearCalendario();
-});
-
-
-// =====================================
-// INICIAR CALENDARIO
-// =====================================
-
-// ==========================================
-// FECHA ACTUAL
-// ==========================================
-
-const fechaActual =
-    document.getElementById("fechaActual");
-
-
-function actualizarFecha() {
-
-
-    const fechaTexto =
-        fecha.toLocaleDateString(
-            "es-AR",
-            {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric"
+            if (esImportante) {
+                divDia.classList.add('importante');
             }
-        );
 
-    fechaActual.textContent =
-        fechaTexto.charAt(0).toUpperCase()
-        + fechaTexto.slice(1);
-}
-const hoy = new Date();
+            if (esHoy) {
+                divDia.classList.add('hoy');
+            }
 
-if (
-    dia === hoy.getDate() &&
-    mes === hoy.getMonth() &&
-    año === hoy.getFullYear()
-) {
+            divDia.innerHTML = `<span>${dia}</span>`;
+            elDiasCalendario.appendChild(divDia);
+        }
+    }
 
-    elemento.classList.add("hoy");
+    // 4. Eventos para cambiar de mes
+    btnMesAnterior.addEventListener('click', () => {
+        fechaNavegacion.setMonth(fechaNavegacion.getMonth() - 1);
+        renderizarCalendario();
+    });
 
-}
+    btnMesSiguiente.addEventListener('click', () => {
+        fechaNavegacion.setMonth(fechaNavegacion.getMonth() + 1);
+        renderizarCalendario();
+    });
 
-actualizarFecha();
+    // Evento para regresar al mes y día actual
+    if (btnHoy) {
+        btnHoy.addEventListener('click', () => {
+            fechaNavegacion = new Date();
+            renderizarCalendario();
+        });
+    }
 
-crearCalendario();
+    // 5. Carga inicial del calendario al abrir la página
+    renderizarCalendario();
+});
