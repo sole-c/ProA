@@ -6,7 +6,7 @@
 
     <title>Novedades y Efemérides</title>
 
-    <link rel="stylesheet" href="novedades.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='novedades.css') }}">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -131,15 +131,49 @@
         </div>
     </nav>
     <div class="site-menu" aria-hidden="true">
-        <ul>
-            <li><a href="inicio.html">Inicio</a></li>
-            <li><a href="sobrelainstitucion.html">Sobre la Institución</a></li>
-            <li><a href="instalaciones.html">Instalaciones</a></li>
-            <li><a href="novedades.html">Novedades</a></li>
-            <li><a href="planes.html">Planes</a></li>
-            <li><a href="equipodeorientacion.html">Equipo</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
-        </ul>
+    <ul>
+
+        <li>
+            <a href="{{ url_for('inicio') }}">Inicio</a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('sobrelainstitucion') }}">
+                Sobre la Institución
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('instalaciones') }}">
+                Instalaciones
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('novedades') }}">
+                Novedades
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('planes') }}">
+                Planes
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('equipodeorientacion') }}">
+                Equipo
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('contacto') }}">
+                Contacto
+            </a>
+        </li>
+
+    </ul>
     </div>
 
     <!-- =========================
@@ -188,7 +222,7 @@
 
             <article class="tarjeta-novedad">
 
-                <img src="img/ciencia.jpg" alt="Feria de Ciencias">
+                <img src="{{ url_for('static', filename='img/feria.webp') }}" alt="Feria de Ciencias">
 
                 <div class="fecha">
                     <strong>15</strong>
@@ -208,7 +242,7 @@
                         y trabajos realizados durante el año.
                     </p>
 
-                    <button class="boton-ver" data-evento="ciencia">Ver más →</button>
+                    <button class="boton-ver" data-evento="feria">Ver más →</button>
 
                 </div>
 
@@ -219,8 +253,7 @@
 
             <article class="tarjeta-novedad">
 
-                <img src="img/familia.jpg" alt="Día de la Familia">
-
+                <img src="{{ url_for('static', filename='img/familia.webp') }}">
                 <div class="fecha">
                     <strong>20</strong>
                     <span>OCT</span>
@@ -250,7 +283,7 @@
 
             <article class="tarjeta-novedad">
 
-                <img src="img/inscripciones.jpg" alt="Inscripciones">
+                <img src="{{ url_for('static', filename='img/inscripciones.webp') }}">
 
                 <div class="fecha">
                     <strong>02</strong>
@@ -398,8 +431,8 @@
     </div>
 </div>
 
-    <script src="novedades.js"></script>
-    <script src="script.js"></script>
+<script src="{{ url_for('static', filename='novedades.js') }}"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 </html>

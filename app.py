@@ -11,6 +11,21 @@ from flask import Flask, abort, jsonify, request, send_file, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
+
+
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/novedades')
+def novedades():
+    return render_template('novedades.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
 app = Flask(__name__)
 app.config.update(
     SECRET_KEY=os.getenv("FLASK_SECRET_KEY") or secrets.token_hex(32),
