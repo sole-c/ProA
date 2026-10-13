@@ -1,0 +1,8 @@
+# Sirve para crear la página web.
+Flask==3.0.0
+# Sirve para iniciar la página cuando la publiques en internet.
+gunicorn==21.2.0
+# Sirve para conectar la página con la base de datos MySQL.
+PyMySQL==1.1.0
+# Sirve para manejar archivos, como las imágenes que subís.
+Werkzeug==3.0.1
