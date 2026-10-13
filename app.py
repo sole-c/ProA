@@ -1,307 +1,229 @@
 import os
-import secrets
-from datetime import timedelta
-from functools import wraps
-from io import BytesIO
-from mimetypes import guess_type
-
-import click
-import mysql.connector
-from flask import Flask, abort, jsonify, request, send_file, session
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from werkzeug.utils import secure_filename
-
-
-
-from flask import Flask, render_template
+import pymysql
 
 app = Flask(__name__)
+app.secret_key = 'clave_secreta_proa_2026'
 
-@app.route('/novedades')
-def novedades():
-    return render_template('novedades.html')
+# Carpeta para subir nuevas imágenes
+UPLOAD_FOLDER = os.path.join('static', 'images')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Configuración de credenciales de MySQL
+DB_CONFIG = {
+    'host': 'localhost',             
+    'user': 'root',                  
+    'password': '', # <--- Pon aquí tu contraseña de MySQL ('' si usas XAMPP)
+    'database': 'proa_db',           
+    'charset': 'utf8mb4',
+    'cursorclass': pymysql.cursors.DictCursor
+}
 
+def get_db_connection():
+    return pymysql.connect(**DB_CONFIG)
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-app = Flask(__name__)
-app.config.update(
-    SECRET_KEY=os.getenv("FLASK_SECRET_KEY") or secrets.token_hex(32),
-    MAX_CONTENT_LENGTH=8 * 1024 * 1024,
-    PERMANENT_SESSION_LIFETIME=timedelta(hours=8),
-    SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE="Lax",
-)
-
-ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
-
-DATABASE_SETUP_SQL = (
-    "CREATE DATABASE IF NOT EXISTS proa_admin "
-    "CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci",
-    "CREATE DATABASE IF NOT EXISTS proa_images "
-    "CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci",
-    "CREATE TABLE IF NOT EXISTS proa_admin.admins ("
-    "id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-    "username VARCHAR(80) NOT NULL UNIQUE, "
-    "password_hash VARCHAR(255) NOT NULL, "
-    "created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP"
-    ") ENGINE=InnoDB",
-    "CREATE TABLE IF NOT EXISTS proa_images.images ("
-    "id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-    "filename VARCHAR(255) NOT NULL, "
-    "content_type VARCHAR(100) NOT NULL, "
-    "image_data LONGBLOB NOT NULL, "
-    "uploaded_by BIGINT UNSIGNED NOT NULL, "
-    "created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, "
-    "INDEX idx_images_created_at (created_at)"
-    ") ENGINE=InnoDB",
-)
-
-
-def database_connection(database_variable):
-    default_name = "proa_admin" if database_variable == "ADMIN_DB_NAME" else "proa_images"
-    database_name = os.getenv(database_variable, default_name)
-
-    return mysql.connector.connect(
-        host=os.getenv("MYSQL_HOST", "127.0.0.1"),
-        port=int(os.getenv("MYSQL_PORT", "3306")),
-        user=os.getenv("MYSQL_USER", "proa_app"),
-        password=os.getenv("MYSQL_PASSWORD", ""),
-        database=database_name,
-        connection_timeout=5,
-    )
-
-
-@app.cli.command("init-db")
-def init_db():
-    """Create the two databases, tables, and the Flask database account."""
-    app_password = os.getenv("MYSQL_PASSWORD")
-    if not app_password:
-        raise click.ClickException("Configura MYSQL_PASSWORD antes de crear las bases.")
-
-    connection = None
-    cursor = None
+def obtener_contenidos():
+    """Trae todos los textos e imágenes desde MySQL."""
     try:
-        connection = mysql.connector.connect(
-            host=os.getenv("MYSQL_HOST", "127.0.0.1"),
-            port=int(os.getenv("MYSQL_PORT", "3306")),
-            user=os.getenv("MYSQL_ADMIN_USER", "root"),
-            password=os.getenv("MYSQL_ADMIN_PASSWORD", ""),
-            connection_timeout=5,
-        )
-        cursor = connection.cursor()
-        for statement in DATABASE_SETUP_SQL:
-            cursor.execute(statement)
-        cursor.execute(
-            "CREATE USER IF NOT EXISTS 'proa_app'@'127.0.0.1' IDENTIFIED BY %s",
-            (app_password,),
-        )
-        cursor.execute(
-            "GRANT SELECT, INSERT ON proa_admin.admins TO 'proa_app'@'127.0.0.1'"
-        )
-        cursor.execute(
-            "GRANT SELECT, INSERT ON proa_images.images TO 'proa_app'@'127.0.0.1'"
-        )
-        click.echo("Bases de datos, tablas y usuario de Flask creados.")
-    except (mysql.connector.Error, ValueError) as error:
-        raise click.ClickException(
-            "No se pudieron crear las bases. Comprueba MySQL y las credenciales de administrador."
-        ) from error
-    finally:
-        if cursor:
-            cursor.close()
-        if connection and connection.is_connected():
-            connection.close()
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT clave, texto FROM contenidos")
+        filas = cursor.fetchall()
+        conn.close()
+        return {item['clave']: item['texto'] for item in filas}
+    except Exception as e:
+        print(f"Error conectando a MySQL: {e}")
+        return {}
 
 
-def admin_required(view):
-    @wraps(view)
-    def wrapped(*args, **kwargs):
-        if "admin_id" not in session:
-            return jsonify(error="Debes iniciar sesión."), 401
-        return view(*args, **kwargs)
-
-    return wrapped
-
-
-@app.post("/login")
+# ---------------------------------------------------------
+# ACCESO ADMINISTRADOR (/login)
+# ---------------------------------------------------------
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    credentials = request.get_json(silent=True) or request.form
-    username = credentials.get("username", "").strip()
-    password = credentials.get("password", "")
-    if not username or not password:
-        return jsonify(error="Completa usuario y contraseña."), 400
+    error = None
+    if request.method == 'POST':
+        user = request.form.get('username')
+        pwd = request.form.get('password')
 
-    connection = None
-    cursor = None
-    try:
-        connection = database_connection("ADMIN_DB_NAME")
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute(
-            "SELECT id, password_hash FROM admins WHERE username = %s",
-            (username,),
-        )
-        admin = cursor.fetchone()
-        if not admin or not check_password_hash(admin["password_hash"], password):
-            return jsonify(error="Usuario o contraseña incorrectos."), 401
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT * FROM usuarios WHERE username=%s AND password=%s AND role='admin'",
+                (user, pwd)
+            )
+            account = cursor.fetchone()
+            conn.close()
 
-        session.clear()
-        session["admin_id"] = admin["id"]
-        session.permanent = True
-        return jsonify(message="Sesión iniciada correctamente.")
-    except (mysql.connector.Error, RuntimeError, ValueError):
-        app.logger.exception("No se pudo consultar la base de administradores.")
-        return jsonify(error="No se pudo conectar con la base de datos."), 503
-    finally:
-        if cursor:
-            cursor.close()
-        if connection and connection.is_connected():
-            connection.close()
+            if account:
+                session['loggedin'] = True
+                session['username'] = user
+                session['role'] = 'admin'
+                return redirect(url_for('inicio'))
+            else:
+                error = "Usuario o contraseña de administrador incorrectos."
+        except Exception as e:
+            error = f"Error al conectar con MySQL: {e}"
 
+    return f'''
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Acceso Administrador | ProA</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-slate-100 flex items-center justify-center min-h-screen font-sans">
+        <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-200">
+            <h1 class="text-2xl font-bold text-[#00355f] text-center mb-2">Panel de Administración</h1>
+            <p class="text-slate-500 text-sm text-center mb-6">Ingresa con tus credenciales de administrador</p>
+            {"<div class='bg-red-100 text-red-700 p-3 rounded mb-4 text-sm text-center'>" + error + "</div>" if error else ""}
+            <form method="POST" action="/login" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Usuario</label>
+                    <input type="text" name="username" required placeholder="admin" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00355f]">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Contraseña</label>
+                    <input type="password" name="password" required placeholder="••••••••" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00355f]">
+                </div>
+                <button type="submit" class="w-full bg-[#00355f] hover:bg-[#0f4c81] text-white font-bold py-2.5 rounded-lg transition-colors shadow">
+                    Ingresar como Administrador
+                </button>
+            </form>
+        </div>
+    </body>
+    </html>
+    '''
 
-@app.post("/logout")
-@admin_required
+@app.route('/logout')
 def logout():
     session.clear()
-    return jsonify(message="Sesión cerrada.")
+    return redirect(url_for('inicio'))
 
 
-@app.get("/images")
-@admin_required
-def list_images():
-    connection = None
-    cursor = None
+# ---------------------------------------------------------
+# RUTAS DE NAVEGACIÓN PÚBLICA
+# ---------------------------------------------------------
+@app.route('/')
+@app.route('/inicio.html')
+@app.route('/inicio')
+def inicio():
+    role = session.get('role', 'usuario')
+    return render_template('inicio.html', contenidos=obtener_contenidos(), role=role)
+
+@app.route('/sobrelainstitucion.html')
+@app.route('/sobrelainstitucion')
+def sobrelainstitucion():
+    role = session.get('role', 'usuario')
+    return render_template('sobrelainstitucion.html', contenidos=obtener_contenidos(), role=role)
+
+@app.route('/instalaciones.html')
+@app.route('/instalaciones')
+def instalaciones():
+    role = session.get('role', 'usuario')
+    return render_template('instalaciones.html', contenidos=obtener_contenidos(), role=role)
+
+@app.route('/novedades.html')
+@app.route('/novedades')
+def novedades():
+    role = session.get('role', 'usuario')
+    return render_template('novedades.html', contenidos=obtener_contenidos(), role=role)
+
+@app.route('/planes.html')
+@app.route('/planes')
+def planes():
+    role = session.get('role', 'usuario')
+    return render_template('planes.html', contenidos=obtener_contenidos(), role=role)
+
+@app.route('/equipodeorientacion.html')
+@app.route('/equipodeorientacion')
+def equipodeorientacion():
+    role = session.get('role', 'usuario')
+    return render_template('equipodeorientacion.html', contenidos=obtener_contenidos(), role=role)
+
+@app.route('/contacto.html')
+@app.route('/contacto')
+def contacto():
+    role = session.get('role', 'usuario')
+    return render_template('contacto.html', contenidos=obtener_contenidos(), role=role)
+
+
+# ---------------------------------------------------------
+# API PARA GUARDAR TEXTOS EN MYSQL (SOLO ADMIN)
+# ---------------------------------------------------------
+@app.route('/api/guardar', methods=['POST'])
+def guardar_contenido():
+    if session.get('role') != 'admin':
+        return jsonify({'error': 'Acceso denegado: Se requieren permisos de administrador'}), 403
+
+    data = request.get_json() if request.is_json else request.form
+    clave = data.get('clave')
+    nuevo_texto = data.get('texto')
+
+    if not clave or nuevo_texto is None:
+        return jsonify({'error': 'Datos incompletos'}), 400
+
     try:
-        connection = database_connection("IMAGES_DB_NAME")
-        cursor = connection.cursor(dictionary=True)
+        conn = get_db_connection()
+        cursor = conn.cursor()
         cursor.execute(
-            "SELECT id, filename, content_type, created_at "
-            "FROM images ORDER BY created_at DESC"
+            "INSERT INTO contenidos (clave, texto) VALUES (%s, %s) ON DUPLICATE KEY UPDATE texto=%s",
+            (clave, nuevo_texto, nuevo_texto)
         )
-        images = cursor.fetchall()
-        for image in images:
-            image["url"] = f"/images/{image['id']}"
-            image["created_at"] = image["created_at"].isoformat()
-        return jsonify(images=images)
-    except (mysql.connector.Error, RuntimeError, ValueError):
-        app.logger.exception("No se pudo consultar la base de imágenes.")
-        return jsonify(error="No se pudo conectar con la base de datos."), 503
-    finally:
-        if cursor:
-            cursor.close()
-        if connection and connection.is_connected():
-            connection.close()
+        conn.commit()
+        conn.close()
+        return jsonify({'success': True, 'mensaje': 'Contenido actualizado en MySQL'})
+    except Exception as e:
+        return jsonify({'error': f'Error al guardar en MySQL: {e}'}), 500
 
 
-@app.post("/images")
-@admin_required
-def upload_image():
-    uploaded_file = request.files.get("image")
-    if not uploaded_file or not uploaded_file.filename:
-        return jsonify(error="Selecciona una imagen en el campo 'image'."), 400
+# ---------------------------------------------------------
+# API PARA CAMBIAR E SUBIR IMÁGENES (SOLO ADMIN)
+# ---------------------------------------------------------
+@app.route('/api/guardar_imagen', methods=['POST'])
+def guardar_imagen():
+    if session.get('role') != 'admin':
+        return jsonify({'error': 'Acceso denegado'}), 403
 
-    filename = secure_filename(uploaded_file.filename)
-    extension = os.path.splitext(filename)[1].lower()
-    content_type = guess_type(filename)[0]
-    if not filename or extension not in ALLOWED_EXTENSIONS or not content_type:
-        return jsonify(error="Formato no permitido. Usa JPG, PNG, GIF o WEBP."), 400
+    clave = request.form.get('clave')
+    if 'imagen' not in request.files:
+        return jsonify({'error': 'No se envió ningún archivo de imagen'}), 400
 
-    image_data = uploaded_file.read()
-    if not image_data:
-        return jsonify(error="El archivo está vacío."), 400
+    file = request.files['imagen']
+    if file.filename == '':
+        return jsonify({'error': 'Nombre de archivo no válido'}), 400
 
-    connection = None
-    cursor = None
-    try:
-        connection = database_connection("IMAGES_DB_NAME")
-        cursor = connection.cursor()
-        cursor.execute(
-            "INSERT INTO images (filename, content_type, image_data, uploaded_by) "
-            "VALUES (%s, %s, %s, %s)",
-            (filename, content_type, image_data, session["admin_id"]),
-        )
-        connection.commit()
-        return jsonify(id=cursor.lastrowid, message="Imagen guardada."), 201
-    except (mysql.connector.Error, RuntimeError, ValueError):
-        if connection and connection.is_connected():
-            connection.rollback()
-        app.logger.exception("No se pudo guardar la imagen.")
-        return jsonify(error="No se pudo guardar la imagen en la base de datos."), 503
-    finally:
-        if cursor:
-            cursor.close()
-        if connection and connection.is_connected():
-            connection.close()
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
 
+        # Guardar la nueva ruta relativa de la imagen en MySQL
+        nueva_ruta = f"images/{filename}"
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute(
+                "INSERT INTO contenidos (clave, texto) VALUES (%s, %s) ON DUPLICATE KEY UPDATE texto=%s",
+                (clave, nueva_ruta, nueva_ruta)
+            )
+            conn.commit()
+            conn.close()
+            return jsonify({'success': True, 'nueva_ruta': nueva_ruta})
+        except Exception as e:
+            return jsonify({'error': f'Error guardando en MySQL: {e}'}), 500
 
-@app.get("/images/<int:image_id>")
-@admin_required
-def get_image(image_id):
-    connection = None
-    cursor = None
-    try:
-        connection = database_connection("IMAGES_DB_NAME")
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute(
-            "SELECT filename, content_type, image_data FROM images WHERE id = %s",
-            (image_id,),
-        )
-        image = cursor.fetchone()
-        if not image:
-            abort(404)
-        return send_file(
-            BytesIO(image["image_data"]),
-            mimetype=image["content_type"],
-            download_name=image["filename"],
-            max_age=0,
-        )
-    except (mysql.connector.Error, RuntimeError, ValueError):
-        app.logger.exception("No se pudo leer la imagen.")
-        return jsonify(error="No se pudo conectar con la base de datos."), 503
-    finally:
-        if cursor:
-            cursor.close()
-        if connection and connection.is_connected():
-            connection.close()
+    return jsonify({'error': 'Formato de imagen no permitido'}), 400
 
 
-@app.cli.command("create-admin")
-def create_admin():
-    """Create an administrator and store only its password hash."""
-    username = click.prompt("Usuario").strip()
-    password = click.prompt("Contraseña", hide_input=True, confirmation_prompt=True)
-    if not username:
-        raise click.ClickException("El usuario no puede estar vacío.")
-
-    connection = None
-    cursor = None
-    try:
-        connection = database_connection("ADMIN_DB_NAME")
-        cursor = connection.cursor()
-        cursor.execute(
-            "INSERT INTO admins (username, password_hash) VALUES (%s, %s)",
-            (username, generate_password_hash(password)),
-        )
-        connection.commit()
-        click.echo("Administrador creado.")
-    except mysql.connector.IntegrityError:
-        raise click.ClickException("Ese usuario ya existe.") from None
-    except (mysql.connector.Error, RuntimeError, ValueError) as error:
-        raise click.ClickException("No se pudo crear el administrador. "
-                                   "Comprueba la configuración y la base de datos.") from error
-    finally:
-        if cursor:
-            cursor.close()
-        if connection and connection.is_connected():
-            connection.close()
-
-
-@app.errorhandler(413)
-def file_too_large(_error):
-    return jsonify(error="La imagen supera el límite de 8 MB."), 413
-
-
-if __name__ == "__main__":
-    app.run(debug=os.getenv("FLASK_DEBUG") == "1")
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
