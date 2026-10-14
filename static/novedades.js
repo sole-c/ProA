@@ -1,15 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Acción del botón "Ver todas" (Desplaza al calendario y resalta fechas)
-document.getElementById('btnVerTodas').addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('seccionCalendario').scrollIntoView({ behavior: 'smooth' });
-    
-    const diasImportantes = document.querySelectorAll('.dia.importante');
-    diasImportantes.forEach(dia => dia.classList.add('destacado-animado'));
-    setTimeout(() => {
-        diasImportantes.forEach(dia => dia.classList.remove('destacado-animado'));
-    }, 3000);
-});
+
+const btnVerTodas = document.getElementById('btnVerTodas');
+const seccionCalendario = document.getElementById('seccionCalendario');
+
+if (btnVerTodas && seccionCalendario) {
+    btnVerTodas.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        seccionCalendario.scrollIntoView({
+            behavior: 'smooth'
+        });
+
+        const diasImportantes = document.querySelectorAll('.dia.importante');
+
+        diasImportantes.forEach(dia => {
+            dia.classList.add('destacado-animado');
+        });
+
+        setTimeout(() => {
+            diasImportantes.forEach(dia => {
+                dia.classList.remove('destacado-animado');
+            });
+        }, 3000);
+    });
+}
+
 
 // Acción de los botones "Ver más" (Abre la ventana modal)
 const modal = document.getElementById('modalNovedad');
@@ -39,7 +55,7 @@ document.querySelectorAll('.boton-ver').forEach(boton => {
 document.getElementById('cerrarModal').addEventListener('click', () => modal.classList.add('hidden'));
 modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
     const informacionEventos = {
-    ciencia: {
+    feria: {
         titulo: "Feria de Ciencias e Innovación",
         tipo: "Evento",
         fecha: "15 de Octubre",
